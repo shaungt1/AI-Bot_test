@@ -1,4 +1,168 @@
-Let’s dive into creating a system prompt for an AI bot tailored to your business, "Jugs of Steel." Before crafting the prompt, I’ll first outline a few potential use cases for the bot to ensure we’re aligned on its purpose. Then, I’ll design a system prompt incorporating best practices in prompt engineering, such as token tagging (inspired by models like Llama3), ReAct (Reasoning and Acting), Chain of Thought (CoT), and other advanced techniques. Let’s get started!
+# AI Bot Test and Demo
+This project i have two differnt bots using OpenAI completions
+
+Below is a simple, quick-start README with step-by-step instructions to set up and build your "ai-bot_test" project, including installing dependencies, creating a bot with OpenAI's API, and developing a system prompt for a car repair assistant.
+
+---
+
+## Quick Start README for "ai-bot_test" Project
+
+Follow these steps to set up and run your AI bot project quickly.
+
+### Step 1: Set Up the Project and Install Dependencies
+1. **Create a Project Folder**:
+   - Open your terminal or command prompt.
+   - Run these commands to create and enter a new folder:
+     ```bash
+     mkdir ai-bot_test
+     cd ai-bot_test
+     ```
+
+2. **Initialize the Project**:
+   - Create a `package.json` file with default settings:
+     ```bash
+     npm init -y
+     ```
+
+3. **Update `package.json`**:
+   - Open `package.json` in a text editor (e.g., VS Code) and replace its contents with this:
+     ```json
+     {
+       "name": "ai-bot_test",
+       "version": "1.0.0",
+       "type": "module",
+       "dependencies": {
+         "fs": "^0.0.1-security",
+         "openai": "^4.86.2",
+         "path": "^0.12.7",
+         "punycode": "^2.3.1",
+         "readline": "^1.3.0",
+         "sync-request": "^6.1.0"
+       },
+       "description": "",
+       "main": "chat.js, bot.js, my-bot.js",
+       "scripts": {
+         "test": "echo \"Error: no test specified\" && exit 1"
+       },
+       "overrides": {
+         "ajv": "^8.17.1",
+         "whatwg-url": "^14.0.0"
+       },
+       "keywords": [],
+       "author": "",
+       "license": "ISC"
+     }
+     ```
+   - Save the file.
+
+4. **Install Dependencies**:
+   - Run this command to install all the packages listed in `package.json`:
+     ```bash
+     npm install
+     ```
+
+---
+
+### Step 2: Create `my-bot.js` and Build the Bot
+1. **Create the File**:
+   - In the `ai-bot_test` folder, create a new file called `my-bot.js`.
+
+2. **Add OpenAI Code**:
+   - Visit the [OpenAI Chat Completions API documentation](https://platform.openai.com/docs/api-reference/chat).
+   - Copy the example code for creating a chat completion and paste it into `my-bot.js`.
+   - Modify it to connect to a `system_prompt.txt` file. Here’s an example:
+     ```javascript
+     import fs from "fs";
+     import OpenAI from "openai";
+
+     const openai = new OpenAI({ apiKey: "your-api-key-here" });
+     const systemPrompt = fs.readFileSync("system_prompt.txt", "utf8").trim();
+
+     async function main() {
+       const completion = await openai.chat.completions.create({
+         model: "gpt-4o-mini",
+         messages: [
+           { role: "system", content: systemPrompt },
+           { role: "user", content: "Hi, I need help!" }
+         ]
+       });
+       console.log(completion.choices[0].message.content);
+     }
+
+     main();
+     ```
+   - Replace `"your-api-key-here"` with your actual OpenAI API key.
+
+3. **Create `system_prompt.txt`**:
+   - In the same folder, create a file called `system_prompt.txt`.
+   - Add a basic prompt for now (you’ll update it later):
+     ```
+     You are a helpful assistant.
+     ```
+
+---
+
+### Step 3: Reference `chat.js` and `bot.js` and Test the Bot
+1. **Copy Reference Files**:
+   - If you have `chat.js` and `bot.js` files from another project, copy them into the `ai-bot_test` folder for reference.
+   - If you don’t have them, you can skip this or create empty files with:
+     ```bash
+     touch chat.js bot.js
+     ```
+
+2. **Test the Bot**:
+   - In your terminal, run:
+     ```bash
+     node my-bot.js
+     ```
+   - Check the output. It should display a response from the bot based on the system prompt and user message.
+
+---
+
+### Step 4: Develop a System Prompt for a Car Repair Assistant
+1. **Concept Overview**:
+   - Let’s make the bot an AI assistant for car repair. It will gather information from the user and provide helpful advice.
+
+2. **10 Tasks for the Assistant**:
+   - Here’s what the assistant should do:
+     1. Greet the user and ask about their car problem.
+     2. Ask for the car’s make, model, and year.
+     3. Inquire about any error codes or warning lights.
+     4. Request a description of the issue (e.g., noises, smells, or behavior).
+     5. Ask if the user has tried any fixes already.
+     6. Suggest possible causes based on the input.
+     7. Recommend simple diagnostic steps (e.g., check fluids, listen for sounds).
+     8. Provide safety tips (e.g., disconnect battery if needed).
+     9. Advise when to see a mechanic.
+     10. Offer to answer follow-up questions.
+
+3. **Write the System Prompt**:
+   - Update `system_prompt.txt` with this:
+     ```
+     You are an AI assistant for car repair. Greet the user warmly and ask about their car issue. Gather details like the car’s make, model, year, any error codes, and symptoms (e.g., sounds or smells). Ask if they’ve tried troubleshooting. Based on their answers, suggest possible causes and simple diagnostic steps. Include safety tips and recommend a mechanic if it’s serious. Be patient and offer to clarify or answer more questions.
+     ```
+
+4. **Test the Assistant**:
+   - Update the user message in `my-bot.js` to something like:
+     ```javascript
+     { role: "user", content: "My car won’t start!" }
+     ```
+   - Run it again:
+     ```bash
+     node my-bot.js
+     ```
+   - The bot should respond by greeting you, asking for more details, and starting the troubleshooting process.
+
+---
+
+### Final Notes
+- You now have a working AI bot in `my-bot.js` that connects to `system_prompt.txt`.
+- Use `chat.js` and `bot.js` as inspiration if you have them.
+- Play with the system prompt and user messages to refine the car repair assistant or adapt it to another use case (e.g., cooking help, tech support).
+
+Enjoy building your AI assistant! Let me know if you need more help.
+
+---
 
 ### Potential Use Cases for the AI Bot
 Here are a few practical use cases for an AI assistant supporting "Jugs of Steel," a company selling stainless steel gallon jugs with smart features:

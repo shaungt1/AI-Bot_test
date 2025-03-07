@@ -11,7 +11,7 @@
     "sync-request": "^6.1.0"
   },
   "description": "",
-  "main": "chat.js",
+  "main": "chat.js, bot.js, my-bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
